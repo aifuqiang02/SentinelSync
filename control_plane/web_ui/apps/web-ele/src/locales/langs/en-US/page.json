@@ -1,0 +1,47 @@
+{
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "codeLogin": "Code Login",
+    "qrcodeLogin": "Qr Code Login",
+    "forgetPassword": "Forget Password"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "analytics": "Analytics",
+    "workspace": "Workspace"
+  },
+  "system": {
+    "title": "System",
+    "user": "User Management",
+    "role": "Role Management",
+    "dept": "Department Management",
+    "menu": "Menu Management",
+    "operlog": "Operation Log",
+    "workflowDesigner": "Workflow Designer",
+    "config": {
+      "title": "Configuration",
+      "dict": "Dictionary Management",
+      "workflow": "Workflow Configuration",
+      "region": "Region Management",
+      "industry": "Industry Management",
+      "businessScope": "Business Scope",
+      "businessApproval": "Business Approval",
+      "industryCategory": "Industry Category"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "settings": "Settings"
+  },
+  "settings": {
+    "title": "System Configuration",
+    "system": "System Settings",
+    "aiProvider": "AI Providers"
+  },
+  "business": {
+    "title": "Business Management",
+    "type": "Business Type Configuration",
+    "list": "Business List"
+  }
+}

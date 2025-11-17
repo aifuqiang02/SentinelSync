@@ -1,0 +1,98 @@
+/**
+ * 全局通用样式
+ * 用于定义跨组件复用的样式类
+ */
+
+/**
+ * 通用信息表格样式
+ * 用于详情页面的信息展示
+ * 
+ * 使用方法:
+ * <div class="info-table">
+ *   <div class="info-row">
+ *     <div class="info-label">标签1</div>
+ *     <div class="info-value">值1</div>
+ *   </div>
+ *   <div class="info-row">
+ *     <div class="info-label">标签2</div>
+ *     <div class="info-value">值2</div>
+ *   </div>
+ *   <div class="info-row full-width">
+ *     <div class="info-label">长标签</div>
+ *     <div class="info-value">很长的值...</div>
+ *   </div>
+ * </div>
+ */
+.info-table {
+  display: grid;
+  grid-template-columns: 180px 1fr 180px 1fr; // 4列：标签1 值1 标签2 值2
+  gap: 0;
+  border: 1px solid var(--el-border-color);
+  border-radius: 4px;
+  overflow: hidden;
+
+  .info-row {
+    display: contents;
+
+    .info-label,
+    .info-value {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--el-border-color);
+      border-right: 1px solid var(--el-border-color);
+    }
+
+    .info-label {
+      background-color: var(--el-fill-color-light);
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--el-text-color-secondary);
+      display: flex;
+      align-items: center;
+    }
+
+    .info-value {
+      background-color: var(--el-bg-color);
+      font-size: 14px;
+      color: var(--el-text-color-primary);
+      display: flex;
+      align-items: center;
+      word-break: break-word;
+    }
+
+    // 移除最右列的右边框
+    .info-label:nth-child(4n+3),
+    .info-value:nth-child(4n) {
+      border-right: none;
+    }
+  }
+
+  // 移除最后一行的底部边框
+  .info-row:last-child {
+
+    .info-label,
+    .info-value {
+      border-bottom: none;
+    }
+  }
+
+  // 全宽行（跨所有列）
+  .info-row.full-width {
+    .info-label {
+      grid-column: 1;
+    }
+
+    .info-value {
+      grid-column: 2 / -1;
+      border-right: none;
+    }
+
+    // 全宽行也要移除底部边框
+    &:last-child {
+
+      .info-label,
+      .info-value {
+        border-bottom: none;
+      }
+    }
+  }
+}

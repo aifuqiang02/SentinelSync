@@ -1,0 +1,23 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  working_dir = "cmd"
+  cmd = "go build -o ../tmp/main.exe ."
+  bin = "../tmp/main.exe"
+  full_bin = ""
+  args = []
+  env = [
+    "RABBITMQ_SERVER_URL=amqp://guest:guest@localhost:5672/"
+  ]
+  stop_on_error = true
+  log = "air_build.log"
+
+[run]
+  cmd = "tmp/main.exe"
+  args = []
+  env = []
+  log = "air_run.log"
+
+[misc]
+  clean_on_exit = true

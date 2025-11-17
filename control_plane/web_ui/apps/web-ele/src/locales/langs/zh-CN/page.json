@@ -1,0 +1,47 @@
+{
+  "auth": {
+    "login": "登录",
+    "register": "注册",
+    "codeLogin": "验证码登录",
+    "qrcodeLogin": "二维码登录",
+    "forgetPassword": "忘记密码"
+  },
+  "dashboard": {
+    "title": "概览",
+    "analytics": "分析页",
+    "workspace": "工作台"
+  },
+  "system": {
+    "title": "系统管理",
+    "user": "用户管理",
+    "role": "角色管理",
+    "dept": "部门管理",
+    "menu": "菜单管理",
+    "operlog": "操作日志",
+    "workflowDesigner": "流程设计器",
+    "config": {
+      "title": "系统配置",
+      "dict": "字典管理",
+      "workflow": "流程配置",
+      "region": "地址管理",
+      "industry": "行业管理",
+      "businessScope": "经营范围",
+      "businessApproval": "经营许可配置",
+      "industryCategory": "国民经济行业分类"
+    }
+  },
+  "profile": {
+    "title": "个人中心",
+    "settings": "个人设置"
+  },
+  "settings": {
+    "title": "系统配置",
+    "system": "系统设置",
+    "aiProvider": "AI 服务商"
+  },
+  "business": {
+    "title": "业务管理",
+    "type": "业务类型配置",
+    "list": "业务列表"
+  }
+}

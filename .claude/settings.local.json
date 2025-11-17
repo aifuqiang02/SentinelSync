@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p agent cmd fsmonitor remote_executor backup_logic services hasher transporter log_processor control_plane management_server web_ui docker agent scripts docs)",
+      "Bash(tree /F /A)",
+      "Bash(pip install:*)",
+      "Bash(npm create vite@latest . -- --template vue)",
+      "Bash(npm install)",
+      "Bash(npm install vue-router@4 axios)",
+      "Bash(dir:*)",
+      "Bash(tree -L:*)",
+      "Bash(npm install:*)",
+      "Bash(xcopy \"docs - 副本\\docs\\*\" docs\\ /E /I /H /Y:*)",
+      "Bash(uvicorn main:app --reload)",
+      "Bash(docker-compose config)",
+      "Bash(docker-compose --env-file .env.local config)",
+      "Bash(rm \"D:\\git-projects\\SentinelSync\\scripts\\development\\docker-compose.override.yml\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
