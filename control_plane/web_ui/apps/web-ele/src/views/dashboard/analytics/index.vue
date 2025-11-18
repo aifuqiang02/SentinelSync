@@ -2,7 +2,6 @@
 import { ref, onMounted, reactive, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { requestClient } from '#/api/request'
-import GetihuReviewDialog from '#/views/business/getihu/review-dialog.vue'
 
 // 当前激活的 Tab
 const activeTab = ref('todo')

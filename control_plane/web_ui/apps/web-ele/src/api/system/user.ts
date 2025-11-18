@@ -12,7 +12,6 @@ export interface User {
   phone?: string;
   avatar?: string;
   status?: string;
-  deptId?: string;
   position?: string;
   employeeNo?: string;
   gender?: string;
@@ -36,7 +35,6 @@ export interface UserPageParams {
   username?: string;
   realName?: string;
   phone?: string;
-  deptId?: string;
   status?: string;
 }
 

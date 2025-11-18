@@ -128,19 +128,6 @@
                 <el-input v-model="formData.email" placeholder="请输入邮箱" />
               </el-form-item>
             </el-col>
-            <el-col :span="12">
-              <el-form-item label="部门" prop="deptId">
-                <el-tree-select
-                  v-model="formData.deptId"
-                  :data="deptTree"
-                  :props="{ label: 'deptName', value: 'id' }"
-                  placeholder="请选择部门"
-                  check-strictly
-                  clearable
-                  style="width: 100%"
-                />
-              </el-form-item>
-            </el-col>
           </el-row>
           <el-row :gutter="20">
             <el-col :span="12">
@@ -199,13 +186,11 @@ import { Plus } from '@element-plus/icons-vue';
 import { Page } from '@vben/common-ui';
 import { userApi, type User } from '#/api/system/user';
 import { roleApi, type Role } from '#/api/system/role';
-import { deptApi, type Dept } from '#/api/system/dept';
 
 const formRef = ref();
 const loading = ref(false);
 const tableData = ref<User[]>([]);
 const roleList = ref<Role[]>([]);
-const deptTree = ref<Dept[]>([]);
 const dialogVisible = ref(false);
 const dialogTitle = ref('新增用户');
 const isEdit = ref(false);
@@ -228,7 +213,6 @@ const formData = reactive<User>({
   realName: '',
   phone: '',
   email: '',
-  deptId: '',
   roleIds: [],
   position: '',
   employeeNo: '',
@@ -273,15 +257,6 @@ const loadRoles = async () => {
     roleList.value = res;
   } catch (error: any) {
     ElMessage.error('加载角色失败');
-  }
-};
-
-const loadDepts = async () => {
-  try {
-    const res = await deptApi.getDeptTree();
-    deptTree.value = res;
-  } catch (error: any) {
-    ElMessage.error('加载部门失败');
   }
 };
 
@@ -363,7 +338,6 @@ const resetForm = () => {
   formData.realName = '';
   formData.phone = '';
   formData.email = '';
-  formData.deptId = '';
   formData.roleIds = [];
   formData.position = '';
   formData.employeeNo = '';
@@ -377,7 +351,6 @@ onMounted(() => {
   console.log('🚀 [用户管理] 组件已挂载，准备加载数据');
   loadData();
   loadRoles();
-  loadDepts();
 });
 </script>
 

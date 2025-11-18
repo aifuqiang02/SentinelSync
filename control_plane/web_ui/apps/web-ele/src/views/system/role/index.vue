@@ -102,8 +102,6 @@
             <el-select v-model="formData.dataScope" placeholder="请选择数据权限" style="width: 100%">
               <el-option label="全部数据" value="ALL" />
               <el-option label="自定义" value="CUSTOM" />
-              <el-option label="本部门" value="DEPT" />
-              <el-option label="本部门及以下" value="DEPT_AND_CHILD" />
               <el-option label="仅本人" value="SELF" />
             </el-select>
           </el-form-item>

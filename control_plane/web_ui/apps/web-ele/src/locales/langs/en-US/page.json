@@ -15,7 +15,6 @@
     "title": "System",
     "user": "User Management",
     "role": "Role Management",
-    "dept": "Department Management",
     "menu": "Menu Management",
     "operlog": "Operation Log",
     "workflowDesigner": "Workflow Designer",
