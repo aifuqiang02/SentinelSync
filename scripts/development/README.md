@@ -64,7 +64,7 @@ development/
 
 | 工具 | 访问地址 | 用户名 | 密码 |
 |------|----------|--------|------|
-| pgAdmin | http://localhost:5050 | admin@sentinel.local | admin123 |
+| pgAdmin | http://localhost:5050 | admin@sentinel.localdev | admin123 |
 | RabbitMQ 管理 | http://localhost:15672 | sentinel | changeme |
 | API 文档 | http://localhost:8000/docs | - | - |
 

@@ -65,7 +65,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
-
+.pnpm-store/
 # ===========================================
 # IDE 和编辑器
 # ===========================================

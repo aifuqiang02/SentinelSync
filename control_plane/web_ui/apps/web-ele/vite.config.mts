@@ -38,7 +38,7 @@ export default defineConfig(async () => {
             // 不重写路径，保留 /api 前缀
             // rewrite: (path) => path.replace(/^\/api/, ''),
             // 后端服务地址
-            target: 'http://10.66.7.82:8080',
+            target: 'http://10.66.7.82:8000',
             ws: true,
           },
         },

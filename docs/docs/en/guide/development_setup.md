@@ -178,14 +178,13 @@ FOR /f %i IN ('dir /b *.sql') DO ( psql -h localhost -p `5432` -U postgres -d se
 
 2.  Install Node.js dependencies:
     ```bash
-    npm install
-    # Or yarn
+    corepack enable pnpm
+    pnpm install
     ```
 
 3.  Start the development server:
     ```bash
-    npm run dev
-    # Or yarn dev
+    pnpm run dev
     ```
 
     The frontend will run on `http://localhost:5173` (specific port may vary depending on configuration).

@@ -305,13 +305,14 @@ uvicorn main:app --reload
 cd control_plane\web_ui
 
 # 安装依赖（首次运行）
-npm install
+corepack enable pnpm
+pnpm install
 
 # 启动开发服务器（会读取环境变量）
-npm run dev
+pnpm run dev
 
 # 或手动指定配置
-npm run dev -- --host 0.0.0.0 --port ${VITE_PORT:-5173}
+pnpm run dev -- --host 0.0.0.0 --port ${VITE_PORT:-5173}
 ```
 
 **前端环境变量**：

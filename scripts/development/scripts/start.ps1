@@ -128,22 +128,9 @@ function Initialize-Database {
         exit 1
     }
 
-    Write-ColorOutput "数据库已就绪，执行初始化脚本..." "Info"
-
-    # 执行SQL脚本
-    $sqlScripts = Get-ChildItem -Path "..\sql" -Filter "*.sql" | Sort-Object Name
-    foreach ($script in $sqlScripts) {
-        Write-ColorOutput "执行: $($script.Name)" "Info"
-        try {
-            docker exec development-postgres-1 psql -U sentinel -d sentinelsync -f "/docker-entrypoint-initdb.d/$(($script | Split-Path -Leaf))"
-        }
-        catch {
-            # 尝试从主机复制文件到容器并执行
-            $containerPath = "/tmp/$(($script | Split-Path -Leaf))"
-            docker cp $script.FullName "development-postgres-1:$containerPath"
-            docker exec development-postgres-1 psql -U sentinel -d sentinelsync -f $containerPath
-        }
-    }
+    Write-ColorOutput "数据库已就绪，SQL脚本将由容器自动执行..." "Info"
+    Write-ColorOutput "等待几秒钟让初始化完成..." "Info"
+    Start-Sleep -Seconds 5
 
     Write-ColorOutput "数据库初始化完成" "Success"
 }
@@ -178,8 +165,8 @@ function Wait-ServicesReady {
     $services = @(
         @{ name = "PostgreSQL"; port = 5432 },
         @{ name = "RabbitMQ Management"; port = 15672 },
-        @{ name = "FastAPI Server"; port = 8000 },
-        @{ name = "Vue Frontend"; port = 5173 }
+        @{ name = "Vue Frontend"; port = 5173 },
+        @{ name = "Management Server"; port = 8000 }
     )
 
     $maxWait = 60
@@ -207,6 +194,36 @@ function Wait-ServicesReady {
             Write-ColorOutput "⚠ $($service.name) 可能在端口 $($service.port) 上启动失败" "Warning"
         }
     }
+
+    # 特别检查 FastAPI 服务器
+    Write-ColorOutput "等待 FastAPI 服务器启动..." "Info"
+    $maxRetries = 5
+    $retryCount = 0
+    $serverReady = $false
+
+    while (-not $serverReady -and $retryCount -lt $maxRetries) {
+        try {
+            $response = Invoke-RestMethod -Uri "http://localhost:8000/health" -Method Get -ErrorAction Stop
+            if ($response.status -eq "healthy") {
+                Write-ColorOutput "✓ FastAPI 服务器已成功启动！" "Success"
+                Write-ColorOutput "访问地址: http://localhost:8000" "Info"
+                Write-ColorOutput "健康检查: http://localhost:8000/health" "Info"
+                Write-ColorOutput "API 状态: http://localhost:8000/api/v1/status" "Info"
+                $serverReady = $true
+            } else {
+                Write-ColorOutput "FastAPI 服务器状态异常: $($response.status)" "Error"
+            }
+        } catch {
+            $retryCount++
+            if ($retryCount -lt $maxRetries) {
+                Write-ColorOutput "无法连接到 FastAPI 服务器，$retryCount/$maxRetries 次重试..." "Warning"
+                Start-Sleep -Seconds 3
+            } else {
+                Write-ColorOutput "FastAPI 服务器启动超时，请检查容器日志获取更多信息。" "Error"
+                Write-ColorOutput "使用命令查看日志: docker logs sentinelsync-management-server-1" "Info"
+            }
+        }
+    }
 }
 
 # 显示状态
@@ -214,12 +231,11 @@ function Show-Status {
     Write-ColorOutput "服务状态:" "Info"
     Write-ColorOutput "$(docker-compose ps)" "Info"
 
-    Write-ColorOutput ""
+    Write-ColorOutput "" 
     Write-ColorOutput "🎉 SentinelStack 启动完成！" "Success"
-    Write-ColorOutput ""
+    Write-ColorOutput "" 
     Write-ColorOutput "访问地址:" "Info"
     Write-ColorOutput "• FastAPI 管理界面: http://localhost:8000" "Info"
-    Write-ColorOutput "• FastAPI API 文档: http://localhost:8000/docs" "Info"
     Write-ColorOutput "• Vue 前端界面: http://localhost:5173" "Info"
     Write-ColorOutput "• RabbitMQ 管理界面: http://localhost:15672" "Info"
     Write-ColorOutput "  用户名: sentinel, 密码: changeme" "Warning"
