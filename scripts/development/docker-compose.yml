@@ -62,7 +62,7 @@ services:
   # Python FastAPI 管理服务器 (带热重载)
   management-server:
     build:
-      context: ./control_plane/management_server
+      context: ../../control_plane/management_server
     ports:
       - "${MANAGEMENT_SERVER_PORT:-8000}:8000"
     depends_on:
@@ -82,7 +82,7 @@ services:
       AUTO_RELOAD: "true"
     volumes:
       # 挂载源代码用于热重载
-      - ../control_plane/management_server:/app
+      - ../../control_plane/management_server:/app
       - /app/__pycache__
     command: >
       sh -c "pip install -r requirements.txt &&
@@ -92,7 +92,7 @@ services:
   # Go 哈希计算服务 (带源码挂载)
   hasher:
     build:
-      context: ./services/hasher
+      context: ../../services/hasher
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -100,13 +100,13 @@ services:
       RABBITMQ_URL: amqp://${RABBITMQ_USER:-sentinel}:${RABBITMQ_PASSWORD:-changeme}@rabbitmq:5672${RABBITMQ_VHOST:-/}
       LOG_LEVEL: "debug"
     volumes:
-      - ../services/hasher:/app
+      - ../../services/hasher:/app
     restart: unless-stopped
 
   # Go 数据传输服务 (带源码挂载)
   transporter:
     build:
-      context: ./services/transporter
+      context: ../../services/transporter
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -114,13 +114,13 @@ services:
       RABBITMQ_URL: amqp://${RABBITMQ_USER:-sentinel}:${RABBITMQ_PASSWORD:-changeme}@rabbitmq:5672${RABBITMQ_VHOST:-/}
       LOG_LEVEL: "debug"
     volumes:
-      - ../services/transporter:/app
+      - ../../services/transporter:/app
     restart: unless-stopped
 
   # Go 日志处理服务 (带源码挂载)
   log-processor:
     build:
-      context: ./services/log_processor
+      context: ../../services/log_processor
     depends_on:
       postgres:
         condition: service_healthy
@@ -131,13 +131,13 @@ services:
       RABBITMQ_URL: amqp://${RABBITMQ_USER:-sentinel}:${RABBITMQ_PASSWORD:-changeme}@rabbitmq:5672${RABBITMQ_VHOST:-/}
       LOG_LEVEL: "debug"
     volumes:
-      - ../services/log_processor:/app
+      - ../../services/log_processor:/app
     restart: unless-stopped
 
   # Vue 3 前端界面 (带热重载)
   web-ui:
     build:
-      context: ./control_plane/web_ui
+      context: ../../control_plane/web_ui
     ports:
       - "${WEB_UI_PORT:-5173}:5173"
     depends_on:
@@ -148,7 +148,7 @@ services:
       VITE_LOG_LEVEL: "debug"
     volumes:
       # 挂载源代码用于热重载
-      - ../control_plane/web_ui:/app
+      - ../../control_plane/web_ui:/app
       - /app/node_modules
     command: >
       sh -c "npm install &&

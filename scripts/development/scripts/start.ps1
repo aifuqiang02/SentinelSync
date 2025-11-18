@@ -95,7 +95,7 @@ function Initialize-Database {
 
     # 检查数据库是否已初始化
     try {
-        $result = docker exec docker_postgres_1 psql -U sentinel -d sentinelsync -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>$null
+        $result = docker exec development-postgres-1 psql -U sentinel -d sentinelsync -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>$null
         if ($result -and $result.Trim() -gt 0) {
             Write-ColorOutput "数据库已初始化，跳过初始化步骤" "Info"
             return
@@ -114,7 +114,7 @@ function Initialize-Database {
     $waited = 0
     while ($waited -lt $maxWait) {
         try {
-            docker exec docker_postgres_1 pg_isready -U sentinel -d sentinelsync >$null 2>&1
+            docker exec development-postgres-1 pg_isready -U sentinel -d sentinelsync >$null 2>&1
             break
         }
         catch {
@@ -131,17 +131,17 @@ function Initialize-Database {
     Write-ColorOutput "数据库已就绪，执行初始化脚本..." "Info"
 
     # 执行SQL脚本
-    $sqlScripts = Get-ChildItem -Path "..\scripts\sql" -Filter "*.sql" | Sort-Object Name
+    $sqlScripts = Get-ChildItem -Path "..\sql" -Filter "*.sql" | Sort-Object Name
     foreach ($script in $sqlScripts) {
         Write-ColorOutput "执行: $($script.Name)" "Info"
         try {
-            docker exec docker_postgres_1 psql -U sentinel -d sentinelsync -f "/docker-entrypoint-initdb.d/$(($script | Split-Path -Leaf))"
+            docker exec development-postgres-1 psql -U sentinel -d sentinelsync -f "/docker-entrypoint-initdb.d/$(($script | Split-Path -Leaf))"
         }
         catch {
             # 尝试从主机复制文件到容器并执行
             $containerPath = "/tmp/$(($script | Split-Path -Leaf))"
-            docker cp $script.FullName "docker_postgres_1:$containerPath"
-            docker exec docker_postgres_1 psql -U sentinel -d sentinelsync -f $containerPath
+            docker cp $script.FullName "development-postgres-1:$containerPath"
+            docker exec development-postgres-1 psql -U sentinel -d sentinelsync -f $containerPath
         }
     }
 
