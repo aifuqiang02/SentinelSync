@@ -168,7 +168,7 @@ function Wait-ServicesReady {
   $rabbitMqManagementPort = [System.Environment]::GetEnvironmentVariable("RABBITMQ_MANAGEMENT_PORT") ?? "15673"
   
   $services = @(
-    @{ name = "PostgreSQL"; port = [int]([System.Environment]::GetEnvironmentVariable("POSTGRES_EXTERNAL_PORT") ?? "5432") },
+    @{ name = "PostgreSQL"; port = [int]([System.Environment]::GetEnvironmentVariable("POSTGRES_EXTERNAL_PORT") ?? "5433") },
     @{ name = "RabbitMQ Management"; port = [int]$rabbitMqManagementPort },
     @{ name = "Vue Frontend"; port = [int]$vueFrontendPort },
     @{ name = "Management Server"; port = [int]$managementServerPort }

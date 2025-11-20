@@ -17,7 +17,7 @@ func main() {
 
 	dbConnStr := os.Getenv("DATABASE_URL")
 	if dbConnStr == "" {
-		dbConnStr = "postgresql://user:password@localhost:5432/sentinelsync?sslmode=disable"
+		dbConnStr = "postgresql://user:password@localhost:5433/sentinelsync?sslmode=disable"
 	}
 
 	queueName := "transfer.needed"

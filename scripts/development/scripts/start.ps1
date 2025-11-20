@@ -163,7 +163,7 @@ function Wait-ServicesReady {
     Write-ColorOutput "等待服务就绪..." "Info"
 
     $services = @(
-        @{ name = "PostgreSQL"; port = 5432 },
+        @{ name = "PostgreSQL"; port = 5433 },
         @{ name = "RabbitMQ Management"; port = 15672 },
         @{ name = "Vue Frontend"; port = 5173 },
         @{ name = "Management Server"; port = 8000 }

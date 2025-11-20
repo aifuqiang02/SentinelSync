@@ -28,7 +28,7 @@ cp .env.template .env.local
 ```
 
 这将启动：
-- PostgreSQL 数据库 (端口 5432)
+- PostgreSQL 数据库 (端口 5433)
 - RabbitMQ 消息队列 (端口 5672/15672)
 - FastAPI 后端 (端口 8000)
 - Vue 前端 (端口 5173)
@@ -151,7 +151,7 @@ POSTGRES_EXTERNAL_PORT=5432 # 数据库端口
 ### 数据库连接
 
 开发环境数据库连接信息：
-- 主机: localhost:5432
+- 主机: localhost:5433
 - 用户名: sentinel
 - 密码: changeme
 - 数据库: sentinelsync

@@ -7,7 +7,7 @@ tmp_dir = "tmp"
   bin = "tmp/hasher.exe"
   env = [
     "RABBITMQ_SERVER_URL=amqp://guest:guest@localhost:5672/",
-    "DATABASE_URL=\"host=localhost port=5432 user=postgres password=postgres dbname=sentinelsync sslmode=disable\""
+    "DATABASE_URL=\"host=localhost port=5433 user=postgres password=postgres dbname=sentinelsync sslmode=disable\""
   ]
   stop_on_error = true
   log = "air_build.log"
